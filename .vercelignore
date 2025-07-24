@@ -1,0 +1,3 @@
+# Vercel ignore
+.env.local
+.env.*.local

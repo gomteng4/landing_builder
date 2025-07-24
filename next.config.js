@@ -7,6 +7,12 @@ const nextConfig = {
     // Vercel 배포 시 ESLint 경고 무시
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    appDir: true,
+  },
+  generateBuildId: async () => {
+    return 'build-' + Date.now()
+  },
 }
 
 module.exports = nextConfig
