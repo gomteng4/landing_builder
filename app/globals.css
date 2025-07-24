@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #3b82f6;
+  --background-color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: var(--background-color);
+}
+
+.builder-element {
+  position: relative;
+  min-height: 20px;
+}
+
+.builder-element:hover {
+  outline: 2px dashed #3b82f6;
+}
+
+.builder-element.selected {
+  outline: 2px solid #3b82f6;
+}
+
+.preview-mode .builder-element:hover,
+.preview-mode .builder-element.selected {
+  outline: none;
+}
+
+.drag-placeholder {
+  height: 2px;
+  background-color: #3b82f6;
+  margin: 4px 0;
+}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(dir /a C:Usersommecgeminilanding_builder)",
+      "Bash(dir /a \"C:\\Users\\ommec\\gemini\\landing_builder\")",
+      "Bash(powershell:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(env)",
+      "Bash(set SUPABASE_ACCESS_TOKEN=sbp_3442dccc01d9de05ca0b57f3bb79437e3dfa6cf4)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}
