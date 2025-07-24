@@ -38,7 +38,7 @@ export async function POST(
       // published_url이 이미 전체 URL인지 확인
       let fullUrl = page.published_url
       if (!page.published_url.startsWith('http')) {
-        fullUrl = `${baseUrl}/r/${page.published_url}`
+        fullUrl = `${baseUrl}/p/${page.published_url}`
       }
       return NextResponse.json({
         success: true,
@@ -73,7 +73,7 @@ export async function POST(
 
     // 전체 URL 생성 (응답용)
     const baseUrl = getBaseUrl(request)
-    const fullUrl = `${baseUrl}/r/${slugToPublish}`
+    const fullUrl = `${baseUrl}/p/${slugToPublish}`
     
     return NextResponse.json({
       success: true,
