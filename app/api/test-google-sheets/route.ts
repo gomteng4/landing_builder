@@ -18,8 +18,7 @@ export async function POST(request: NextRequest) {
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     })
 
-    const authClient = await auth.getClient()
-    const sheets = google.sheets({ version: 'v4', auth: authClient })
+    const sheets = google.sheets({ version: 'v4', auth })
 
     // 스프레드시트 정보 가져오기로 연결 테스트
     const response = await sheets.spreadsheets.get({

@@ -11,7 +11,10 @@
       "Bash(npm:*)",
       "Bash(env)",
       "Bash(set SUPABASE_ACCESS_TOKEN=sbp_3442dccc01d9de05ca0b57f3bb79437e3dfa6cf4)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(vercel inspect:*)",
+      "Bash(vercel:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

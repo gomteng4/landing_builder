@@ -50,7 +50,7 @@ export default function BuilderCanvas({
     <div className="flex-1 overflow-auto bg-gray-50">
       <div className="min-h-full p-4 md:p-8">
         <div
-          ref={drop}
+          ref={drop as any}
           onClick={handleCanvasClick}
           className={`bg-white min-h-[600px] mx-auto shadow-lg transition-all duration-200 ${
             isPreviewMode ? 'max-w-sm sm:max-w-sm md:max-w-md lg:max-w-lg' : 'max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl'

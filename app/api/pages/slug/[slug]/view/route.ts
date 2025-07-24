@@ -9,11 +9,20 @@ export async function POST(
     const slug = params.slug
 
     // 페이지 조회수 증가
+    // 먼저 현재 조회수를 가져옴
+    const { data } = await supabase
+      .from('pages')
+      .select('page_views')
+      .eq('slug', slug)
+      .eq('is_published', true)
+      .single()
+    
+    const currentViews = data?.page_views || 0
+    
+    // 조회수 +1 업데이트
     const { error } = await supabase
       .from('pages')
-      .update({ 
-        page_views: supabase.raw('page_views + 1') 
-      })
+      .update({ page_views: currentViews + 1 })
       .eq('slug', slug)
       .eq('is_published', true)
 

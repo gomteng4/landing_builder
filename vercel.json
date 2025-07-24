@@ -5,11 +5,11 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "env": {
-    "NEXTAUTH_URL": "@nextauth_url",
-    "NEXTAUTH_SECRET": "@nextauth_secret",
-    "SUPABASE_URL": "@supabase_url",
-    "SUPABASE_ANON_KEY": "@supabase_anon_key",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key"
+    "NEXTAUTH_URL": "https://landing_builder_7741.vercel.app",
+    "NEXTAUTH_SECRET": "jN38vJxUznS9KwBXk2A4s7dPZfYqRuLc",
+    "SUPABASE_URL": "https://lcpcgjgmhgsnxuqqalws.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjcGNnamdtaGdzbnh1cXFhbHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzMyNTAsImV4cCI6MjA2ODkwOTI1MH0.y9InB71atri2b7E4crpQPwX1HhuB9YTI5fpUCPIHTjk",
+    "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjcGNnamdtaGdzbnh1cXFhbHdzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MzMzMzI1MCwiZXhwIjoyMDY4OTA5MjUwfQ.SXk53lUULuuQbVzS_MtUrPnJcAHT7B1MHCwWakBgtGI"
   },
   "functions": {
     "app/api/*/route.ts": {

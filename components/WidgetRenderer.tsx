@@ -13,7 +13,7 @@ interface WidgetRendererProps {
 export default function WidgetRenderer({ widgetType, config, isPreview = false }: WidgetRendererProps) {
   // 플로팅 메뉴는 wrapper 없이 직접 렌더링
   if (widgetType === 'floating-menu') {
-    return <FloatingMenu config={config} isPreview={isPreview} />
+    return <FloatingMenu config={config as any} isPreview={isPreview} />
   }
 
   const widgetClasses = `

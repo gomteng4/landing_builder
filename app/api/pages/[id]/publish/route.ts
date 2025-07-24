@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
+function getBaseUrl(request: NextRequest) {
+  // Vercel 배포 환경에서는 request에서 호스트를 가져옴
+  const host = request.headers.get('host')
+  const protocol = request.headers.get('x-forwarded-proto') || 'https'
+  return `${protocol}://${host}`
+}
+
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -21,15 +28,21 @@ export async function POST(
 
     // 이미 게시된 경우 기존 URL 반환
     if (page.is_published && page.published_url) {
+      const baseUrl = getBaseUrl(request)
+      const fullUrl = `${baseUrl}/r/${page.published_url}`
       return NextResponse.json({
         success: true,
-        published_url: page.published_url,
+        published_url: fullUrl,
         message: '이미 게시된 페이지입니다.'
       })
     }
 
-    // 페이지 게시 처리
-    const published_url = page.slug // 기존 slug를 published_url로 사용
+    // 페이지 게시 처리 - slug가 없으면 새로 생성
+    let published_url = page.slug
+    if (!published_url) {
+      // slug가 없으면 페이지 ID 기반으로 생성
+      published_url = `page-${pageId.slice(0, 8)}-${Date.now().toString(36)}`
+    }
     const now = new Date().toISOString()
 
     const { data, error } = await supabase
@@ -48,9 +61,13 @@ export async function POST(
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
+    // 전체 URL 생성
+    const baseUrl = getBaseUrl(request)
+    const fullUrl = `${baseUrl}/r/${published_url}`
+    
     return NextResponse.json({
       success: true,
-      published_url: published_url,
+      published_url: fullUrl,
       published_at: now,
       message: '페이지가 성공적으로 게시되었습니다!'
     })

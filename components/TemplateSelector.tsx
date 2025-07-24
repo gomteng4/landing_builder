@@ -219,7 +219,7 @@ const templates: Template[] = [
             fullWidth: false,
             kakaoChannelUrl: 'https://pf.kakao.com/_your_channel',
             phoneNumber: '010-1234-5678',
-            position: 'bottom-right'
+            position: 'bottom-right' as any
           }
         },
         order: 4

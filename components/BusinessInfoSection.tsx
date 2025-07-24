@@ -62,7 +62,7 @@ export default function BusinessInfoSection({
   const getDefaultContent = (type: PageElement['type']) => {
     switch (type) {
       case 'heading':
-        return { text: '사업자 정보', level: 3 }
+        return { text: '사업자 정보', level: 3 as const }
       case 'text':
         return { text: '회사명: 예시 회사\n주소: 서울시 강남구\n전화: 02-1234-5678\n이메일: info@example.com' }
       case 'image':

@@ -176,7 +176,7 @@ export default function PageBuilder({ initialData, pageId }: PageBuilderProps) {
     }
   }
 
-  const addElement = useCallback((type: PageElement['type'], widgetType?: string) => {
+  const addElement = useCallback((type: PageElement['type'], widgetType?: 'applicant-list' | 'countdown-banner' | 'discount-counter' | 'visitor-count' | 'stock-alert' | 'floating-menu') => {
     console.log('Adding element:', type, 'widgetType:', widgetType, 'isAddingElement:', isAddingElement)
     
     if (isAddingElement) {
@@ -188,13 +188,13 @@ export default function PageBuilder({ initialData, pageId }: PageBuilderProps) {
     
     setBuilderState(prev => {
       const content = type === 'widget' && widgetType 
-        ? { widgetType, widgetConfig: getDefaultWidgetConfig(widgetType) }
+        ? { widgetType: widgetType as any, widgetConfig: getDefaultWidgetConfig(widgetType) }
         : getDefaultContent(type)
         
       const newElement: PageElement = {
         id: uuidv4(),
         type,
-        content,
+        content: content as any,
         order: prev.elements.length,
       }
 
@@ -466,11 +466,11 @@ export default function PageBuilder({ initialData, pageId }: PageBuilderProps) {
             <BuilderSidebar
               selectedElement={
                 builderState.selectedElementId
-                  ? builderState.elements.find(el => el.id === builderState.selectedElementId)
+                  ? builderState.elements.find(el => el.id === builderState.selectedElementId) || null
                   : null
               }
               settings={builderState.settings}
-              onAddElement={addElement}
+              onAddElement={addElement as any}
               onUpdateElement={updateElement}
               onDeleteElement={deleteElement}
               onUpdateSettings={updateSettings}

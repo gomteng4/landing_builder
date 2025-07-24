@@ -12,7 +12,7 @@ export default function BuilderPage() {
   const [initialData, setInitialData] = useState<{
     elements: PageElement[]
     settings: PageSettings
-  } | null>(null)
+  } | undefined>(undefined)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -37,7 +37,13 @@ export default function BuilderPage() {
               settings: {
                 title: '새 랜딩페이지',
                 primaryColor: '#3b82f6',
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                businessInfo: {
+                  id: 'business-info',
+                  isVisible: false,
+                  backgroundColor: '#f8fafc',
+                  elements: []
+                }
               }
             })
           }
@@ -48,7 +54,13 @@ export default function BuilderPage() {
             settings: {
               title: '새 랜딩페이지',
               primaryColor: '#3b82f6',
-              backgroundColor: '#ffffff'
+              backgroundColor: '#ffffff',
+              businessInfo: {
+                id: 'business-info',
+                isVisible: false,
+                backgroundColor: '#f8fafc',
+                elements: []
+              }
             }
           })
         }
@@ -59,7 +71,13 @@ export default function BuilderPage() {
           settings: {
             title: '새 랜딩페이지',
             primaryColor: '#3b82f6',
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            businessInfo: {
+              id: 'business-info',
+              isVisible: false,
+              backgroundColor: '#f8fafc',
+              elements: []
+            }
           }
         })
       }

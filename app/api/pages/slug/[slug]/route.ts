@@ -15,10 +15,11 @@ export async function GET(
       )
     }
 
+    // published_url 또는 slug로 페이지 조회
     const { data, error } = await supabase
       .from('pages')
       .select('*')
-      .eq('slug', slug)
+      .or(`slug.eq.${slug},published_url.eq.${slug}`)
       .eq('is_published', true)
       .single()
 

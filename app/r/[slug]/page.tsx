@@ -88,9 +88,12 @@ export default function RandomUrlPage() {
 
   return (
     <PublishedPage
-      elements={pageData.elements}
-      settings={pageData.settings}
-      pageId={pageData.id}
+      page={{
+        id: pageData.id,
+        title: pageData.title,
+        elements: pageData.elements,
+        settings: pageData.settings
+      }}
     />
   )
 }

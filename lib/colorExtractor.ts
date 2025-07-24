@@ -77,7 +77,7 @@ export function extractColorFromPoint(imageUrl: string, x: number, y: number): P
         ctx.drawImage(img, 0, 0)
         
         const imageData = ctx.getImageData(x, y, 1, 1)
-        const [r, g, b] = imageData.data
+        const [r, g, b] = Array.from(imageData.data)
         
         const color = rgbToHex(r, g, b)
         resolve(color)

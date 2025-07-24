@@ -486,7 +486,7 @@ export default function ElementEditor({
                 <div className="text-xs text-blue-700 space-y-1">
                   <p>1. Figma에서 디자인 선택 → Dev Mode → Copy as CSS</p>
                   <p>2. 복사한 CSS 코드를 아래 텍스트박스에 붙여넣기</p>
-                  <p>3. "자동 변환" 버튼 클릭으로 HTML/CSS로 변환</p>
+                  <p>3. &quot;자동 변환&quot; 버튼 클릭으로 HTML/CSS로 변환</p>
                 </div>
               </div>
 
@@ -519,7 +519,7 @@ height: 1697px;
 👆 Figma에서 복사한 CSS 코드를 여기에 붙여넣고 '자동 변환' 버튼을 클릭하세요"
                 />
                 <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                  ⚠️ 변환 전에는 CSS 코드가 그대로 텍스트로 표시됩니다. 반드시 "자동 변환" 버튼을 클릭해주세요.
+                  ⚠️ 변환 전에는 CSS 코드가 그대로 텍스트로 표시됩니다. 반드시 &quot;자동 변환&quot; 버튼을 클릭해주세요.
                 </div>
               </div>
               
@@ -581,7 +581,7 @@ height: 1697px;
                   ) : (
                     <div className="text-center text-gray-400 py-8">
                       <div className="text-4xl mb-2">🎨</div>
-                      <p className="text-sm">Figma CSS 코드를 입력하고 "자동 변환"을 클릭하면</p>
+                      <p className="text-sm">Figma CSS 코드를 입력하고 &quot;자동 변환&quot;을 클릭하면</p>
                       <p className="text-sm">여기에 미리보기가 표시됩니다</p>
                     </div>
                   )}

@@ -24,7 +24,6 @@ export interface ElementContent {
   
   // Button
   buttonText?: string
-  link?: string
   
   // Form
   fields?: FormField[]
@@ -66,7 +65,6 @@ export interface WidgetConfig {
   urgentColor?: string
   completedText?: string
   position?: 'top' | 'bottom'
-  sticky?: boolean
   
   // 할인 카운터
   currentCount?: number
@@ -86,7 +84,7 @@ export interface WidgetConfig {
   // 플로팅 메뉴
   kakaoChannelUrl?: string
   phoneNumber?: string
-  position?: 'bottom-right' | 'bottom-left'
+  menuPosition?: 'bottom-right' | 'bottom-left'
 }
 
 export interface ElementStyles {

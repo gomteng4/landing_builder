@@ -1,6 +1,6 @@
 'use client'
 
-import { Eye, Save, Share, Settings, ExternalLink, Menu, Star, Edit3, List, Globe, GlobeOff } from 'lucide-react'
+import { Eye, Save, Share, Settings, ExternalLink, Menu, Star, Edit3, List, Globe, XCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -56,16 +56,6 @@ export default function BuilderHeader({
           <span>{isPreviewMode ? '편집 모드' : '미리보기'}</span>
         </button>
 
-        {pageId && (
-          <button
-            onClick={() => window.open(`/page/${pageId}`, '_blank')}
-            className="flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-            <span>새창 미리보기</span>
-          </button>
-        )}
-
         <button
           onClick={onSave}
           className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
@@ -80,7 +70,7 @@ export default function BuilderHeader({
               onClick={onUnpublish}
               className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors"
             >
-              <GlobeOff className="w-4 h-4" />
+              <XCircle className="w-4 h-4" />
               <span>게시 취소</span>
             </button>
           ) : (
@@ -152,16 +142,6 @@ export default function BuilderHeader({
           )}
         </div>
 
-        {pageId && (
-          <Link
-            href={`/page/${pageId}`}
-            target="_blank"
-            className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
-          >
-            <Share className="w-4 h-4" />
-            <span>공유</span>
-          </Link>
-        )}
       </div>
     </header>
   )

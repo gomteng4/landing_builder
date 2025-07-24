@@ -7,7 +7,7 @@ interface FloatingMenuConfig {
   kakaoChannelUrl?: string
   phoneNumber?: string
   isVisible?: boolean
-  position?: 'bottom-right' | 'bottom-left'
+  menuPosition?: 'bottom-right' | 'bottom-left'
   backgroundColor?: string
   textColor?: string
 }
@@ -25,7 +25,7 @@ export default function FloatingMenu({ config, isPreview = false }: FloatingMenu
     return null
   }
 
-  const position = config.position === 'bottom-left' ? 'left-4' : 'right-4'
+  const position = config.menuPosition === 'bottom-left' ? 'left-4' : 'right-4'
   const bgColor = config.backgroundColor || '#007bff'
   const textColor = config.textColor || '#ffffff'
 
@@ -41,7 +41,7 @@ export default function FloatingMenu({ config, isPreview = false }: FloatingMenu
         }
       `}</style>
       
-      <div className={`fixed bottom-4 ${position} z-50 flex flex-col ${config.position === 'bottom-left' ? 'items-start' : 'items-end'} space-y-2`}>
+      <div className={`fixed bottom-4 ${position} z-50 flex flex-col ${config.menuPosition === 'bottom-left' ? 'items-start' : 'items-end'} space-y-2`}>
         {/* 확장된 메뉴 아이템들 */}
         {isExpanded && (
           <div className="flex flex-col space-y-2 animate-slide-up">
@@ -49,7 +49,7 @@ export default function FloatingMenu({ config, isPreview = false }: FloatingMenu
               <button
                 onClick={() => {
                   if (!isPreview && config.kakaoChannelUrl) {
-                    window.open(config.kakaoChannelUrl, '_blank')
+                    window.open(config.kakaoChannelUrl, '_blank', 'noopener,noreferrer')
                   }
                 }}
                 className="flex items-center space-x-2 px-4 py-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 whitespace-nowrap"
@@ -67,7 +67,9 @@ export default function FloatingMenu({ config, isPreview = false }: FloatingMenu
               <button
                 onClick={() => {
                   if (!isPreview && config.phoneNumber) {
-                    window.location.href = `tel:${config.phoneNumber}`
+                    // 전화번호에서 특수문자 제거하고 tel: 링크로 연결
+                    const cleanPhoneNumber = config.phoneNumber.replace(/[^0-9+]/g, '')
+                    window.location.href = `tel:${cleanPhoneNumber}`
                   }
                 }}
                 className="flex items-center space-x-2 px-4 py-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 whitespace-nowrap"

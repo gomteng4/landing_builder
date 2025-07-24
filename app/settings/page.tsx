@@ -241,7 +241,7 @@ export default function SettingsPage() {
             <li>서비스 계정을 생성하고 JSON 키를 다운로드합니다.</li>
             <li>구글 스프레드시트를 생성하고, 서비스 계정 이메일을 편집자로 공유합니다.</li>
             <li>위 폼에 스프레드시트 ID와 서비스 계정 JSON을 입력합니다.</li>
-            <li>"연결 테스트"로 설정을 확인한 후 "설정 저장"을 클릭합니다.</li>
+            <li>&quot;연결 테스트&quot;로 설정을 확인한 후 &quot;설정 저장&quot;을 클릭합니다.</li>
           </ol>
         </div>
       </div>

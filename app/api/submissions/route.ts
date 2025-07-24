@@ -22,8 +22,7 @@ async function sendToGoogleSheets(submissionData: any) {
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     })
 
-    const authClient = await auth.getClient()
-    const sheets = google.sheets({ version: 'v4', auth: authClient })
+    const sheets = google.sheets({ version: 'v4', auth })
 
     // 제출 데이터를 행으로 변환
     const now = new Date()
