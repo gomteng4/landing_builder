@@ -398,7 +398,8 @@ export default function PageBuilder({ initialData, pageId }: PageBuilderProps) {
       setIsPublished(true)
       setPublishedUrl(data.published_url)
       
-      const fullUrl = `${window.location.origin}/r/${data.published_url}`
+      // API가 이미 전체 URL을 반환하므로 그대로 사용
+      const fullUrl = data.published_url
       const message = `페이지가 성공적으로 게시되었습니다!\\n\\n게시 URL: ${fullUrl}\\n\\n이 URL을 공유하여 다른 사람들이 페이지에 접근할 수 있습니다.`
       alert(message)
       

@@ -16,10 +16,4 @@
       "maxDuration": 30
     }
   },
-  "rewrites": [
-    {
-      "source": "/r/:slug",
-      "destination": "/page/:slug"
-    }
-  ]
 }
