@@ -20,7 +20,8 @@
       "WebFetch(domain:landingbuilder-edtf1ltbg-zzs-projects-8e34c14d.vercel.app)",
       "WebFetch(domain:landingbuilder-bjbap61n7-zzs-projects-8e34c14d.vercel.app)",
       "Bash(y)",
-      "WebFetch(domain:landingbuilder-5g0tjf2ee-zzs-projects-8e34c14d.vercel.app)"
+      "WebFetch(domain:landingbuilder-5g0tjf2ee-zzs-projects-8e34c14d.vercel.app)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
