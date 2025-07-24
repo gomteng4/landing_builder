@@ -35,7 +35,11 @@ export async function POST(
     // 이미 게시된 경우 기존 URL 반환
     if (page.is_published && page.published_url) {
       const baseUrl = getBaseUrl(request)
-      const fullUrl = `${baseUrl}/r/${page.published_url}`
+      // published_url이 이미 전체 URL인지 확인
+      let fullUrl = page.published_url
+      if (!page.published_url.startsWith('http')) {
+        fullUrl = `${baseUrl}/r/${page.published_url}`
+      }
       return NextResponse.json({
         success: true,
         published_url: fullUrl,
@@ -43,11 +47,11 @@ export async function POST(
       })
     }
 
-    // 페이지 게시 처리 - slug가 없으면 새로 생성
-    let published_url = page.slug
-    if (!published_url) {
+    // 페이지 게시 처리 - slug를 published_url로 사용 (slug만 저장)
+    let slugToPublish = page.slug
+    if (!slugToPublish) {
       // slug가 없으면 페이지 ID 기반으로 생성
-      published_url = `page-${pageId.slice(0, 8)}-${Date.now().toString(36)}`
+      slugToPublish = `page-${pageId.slice(0, 8)}-${Date.now().toString(36)}`
     }
     const now = new Date().toISOString()
 
@@ -56,7 +60,7 @@ export async function POST(
       .update({
         is_published: true,
         published_at: now,
-        published_url: published_url,
+        published_url: slugToPublish,
         updated_at: now
       })
       .eq('id', pageId)
@@ -67,9 +71,9 @@ export async function POST(
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    // 전체 URL 생성
+    // 전체 URL 생성 (응답용)
     const baseUrl = getBaseUrl(request)
-    const fullUrl = `${baseUrl}/r/${published_url}`
+    const fullUrl = `${baseUrl}/r/${slugToPublish}`
     
     return NextResponse.json({
       success: true,
