@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import PublishedPage from '@/components/PublishedPage'
 import { PageElement, PageSettings } from '@/types/builder'
+import { supabase } from '@/lib/supabase'
 
 interface PageData {
   id: string
@@ -26,22 +27,32 @@ export default function RandomUrlPage() {
 
       try {
         setLoading(true)
-        const response = await fetch(`/api/pages/slug/${slug}`)
+        
+        // Supabase에서 직접 조회 (published_url 또는 slug로)
+        const { data, error } = await supabase
+          .from('pages')
+          .select('*')
+          .or(`slug.eq.${slug},published_url.eq.${slug}`)
+          .eq('is_published', true)
+          .single()
+        
+        if (error || !data) {
+          console.error('Supabase error:', error)
+          setError('페이지를 찾을 수 없습니다.')
+          return
+        }
+
+        setPageData({
+          id: data.id,
+          title: data.title,
+          slug: data.slug,
+          elements: data.elements || [],
+          settings: data.settings || { title: '', primaryColor: '#3b82f6', backgroundColor: '#ffffff' }
+        })
         
         // 페이지 조회수 증가 (비동기로 처리)
         fetch(`/api/pages/slug/${slug}/view`, { method: 'POST' }).catch(console.error)
         
-        if (!response.ok) {
-          if (response.status === 404) {
-            setError('페이지를 찾을 수 없습니다.')
-          } else {
-            setError('페이지를 불러오는 중 오류가 발생했습니다.')
-          }
-          return
-        }
-
-        const data = await response.json()
-        setPageData(data)
       } catch (err) {
         console.error('Error fetching page:', err)
         setError('페이지를 불러오는 중 오류가 발생했습니다.')
