@@ -14,7 +14,9 @@
       "Bash(mkdir:*)",
       "Bash(vercel inspect:*)",
       "Bash(vercel:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "WebFetch(domain:landingbuilder-g0r4bmw1k-zzs-projects-8e34c14d.vercel.app)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }

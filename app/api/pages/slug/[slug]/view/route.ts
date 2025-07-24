@@ -9,22 +9,25 @@ export async function POST(
     const slug = params.slug
 
     // 페이지 조회수 증가
-    // 먼저 현재 조회수를 가져옴
+    // 먼저 현재 조회수를 가져옴 (published_url 또는 slug로 검색)
     const { data } = await supabase
       .from('pages')
-      .select('page_views')
-      .eq('slug', slug)
+      .select('page_views, id')
+      .or(`slug.eq.${slug},published_url.eq.${slug}`)
       .eq('is_published', true)
       .single()
     
-    const currentViews = data?.page_views || 0
+    if (!data) {
+      return NextResponse.json({ success: false, error: 'Page not found' })
+    }
     
-    // 조회수 +1 업데이트
+    const currentViews = data.page_views || 0
+    
+    // 조회수 +1 업데이트 (ID로 업데이트)
     const { error } = await supabase
       .from('pages')
       .update({ page_views: currentViews + 1 })
-      .eq('slug', slug)
-      .eq('is_published', true)
+      .eq('id', data.id)
 
     if (error) {
       console.error('View count update error:', error)
