@@ -16,7 +16,8 @@
       "Bash(vercel:*)",
       "Bash(git add:*)",
       "WebFetch(domain:landingbuilder-g0r4bmw1k-zzs-projects-8e34c14d.vercel.app)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebFetch(domain:landingbuilder-edtf1ltbg-zzs-projects-8e34c14d.vercel.app)"
     ],
     "deny": []
   }
