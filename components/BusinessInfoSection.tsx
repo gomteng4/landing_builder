@@ -75,7 +75,7 @@ export default function BusinessInfoSection({
           width: 100, 
           height: 100, 
           link: '',
-          layout: 'left' // 'left', 'right', 'top', 'bottom'
+          layout: 'left' as 'left' | 'right' | 'top' | 'bottom'
         }
       case 'button':
         return { buttonText: '문의하기', link: 'mailto:info@example.com' }
