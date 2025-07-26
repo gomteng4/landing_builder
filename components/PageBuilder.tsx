@@ -215,20 +215,69 @@ export default function PageBuilder({ initialData, pageId }: PageBuilderProps) {
   }, [isAddingElement])
 
   const updateElement = useCallback((id: string, updates: Partial<PageElement>) => {
-    setBuilderState(prev => ({
-      ...prev,
-      elements: prev.elements.map(el => 
-        el.id === id ? { ...el, ...updates } : el
-      )
-    }))
+    setBuilderState(prev => {
+      // 일반 요소들에서 찾기
+      const foundInElements = prev.elements.find(el => el.id === id)
+      if (foundInElements) {
+        return {
+          ...prev,
+          elements: prev.elements.map(el => 
+            el.id === id ? { ...el, ...updates } : el
+          )
+        }
+      }
+      
+      // 사업자 정보 섹션 요소들에서 찾기
+      const foundInBusinessInfo = prev.settings.businessInfo.elements.find(el => el.id === id)
+      if (foundInBusinessInfo) {
+        return {
+          ...prev,
+          settings: {
+            ...prev.settings,
+            businessInfo: {
+              ...prev.settings.businessInfo,
+              elements: prev.settings.businessInfo.elements.map(el =>
+                el.id === id ? { ...el, ...updates } : el
+              )
+            }
+          }
+        }
+      }
+      
+      return prev
+    })
   }, [])
 
   const deleteElement = useCallback((id: string) => {
-    setBuilderState(prev => ({
-      ...prev,
-      elements: prev.elements.filter(el => el.id !== id),
-      selectedElementId: prev.selectedElementId === id ? null : prev.selectedElementId
-    }))
+    setBuilderState(prev => {
+      // 일반 요소들에서 찾기
+      const foundInElements = prev.elements.find(el => el.id === id)
+      if (foundInElements) {
+        return {
+          ...prev,
+          elements: prev.elements.filter(el => el.id !== id),
+          selectedElementId: prev.selectedElementId === id ? null : prev.selectedElementId
+        }
+      }
+      
+      // 사업자 정보 섹션 요소들에서 찾기
+      const foundInBusinessInfo = prev.settings.businessInfo.elements.find(el => el.id === id)
+      if (foundInBusinessInfo) {
+        return {
+          ...prev,
+          settings: {
+            ...prev.settings,
+            businessInfo: {
+              ...prev.settings.businessInfo,
+              elements: prev.settings.businessInfo.elements.filter(el => el.id !== id)
+            }
+          },
+          selectedElementId: prev.selectedElementId === id ? null : prev.selectedElementId
+        }
+      }
+      
+      return prev
+    })
   }, [])
 
   const selectElement = useCallback((id: string | null) => {
@@ -467,7 +516,9 @@ export default function PageBuilder({ initialData, pageId }: PageBuilderProps) {
             <BuilderSidebar
               selectedElement={
                 builderState.selectedElementId
-                  ? builderState.elements.find(el => el.id === builderState.selectedElementId) || null
+                  ? builderState.elements.find(el => el.id === builderState.selectedElementId) || 
+                    builderState.settings.businessInfo.elements.find(el => el.id === builderState.selectedElementId) || 
+                    null
                   : null
               }
               settings={builderState.settings}

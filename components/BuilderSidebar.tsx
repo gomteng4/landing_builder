@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Type, 
   Heading, 
@@ -51,10 +51,19 @@ export default function BuilderSidebar({
 }: BuilderSidebarProps) {
   const [activeTab, setActiveTab] = useState<'elements' | 'widgets' | 'settings' | 'edit'>('elements')
 
-  // 선택된 요소가 있을 때 자동으로 편집 탭으로 전환
-  if (selectedElement && activeTab !== 'edit') {
-    setActiveTab('edit')
-  }
+  // 선택된 요소가 있을 때 자동으로 편집 탭으로 전환 (사용자가 명시적으로 다른 탭을 선택하지 않은 경우에만)
+  useEffect(() => {
+    if (selectedElement && activeTab === 'elements') {
+      setActiveTab('edit')
+    }
+  }, [selectedElement])
+
+  // 선택된 요소가 없으면 편집 탭에서 요소 탭으로 자동 전환
+  useEffect(() => {
+    if (!selectedElement && activeTab === 'edit') {
+      setActiveTab('elements')
+    }
+  }, [selectedElement, activeTab])
 
   return (
     <div className="w-80 max-w-[90vw] bg-white border-r border-gray-200 flex flex-col overflow-hidden">
