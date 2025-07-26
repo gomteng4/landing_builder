@@ -18,7 +18,7 @@ export default function WidgetRenderer({ widgetType, config, isPreview = false }
 
   const widgetClasses = `
     ${config.sticky ? 'sticky top-0 z-50' : ''}
-    ${config.fullWidth && !isPreview ? 'w-screen -mx-4 md:-mx-8 lg:-mx-16' : ''}
+    ${config.fullWidth && !isPreview ? 'w-full' : ''}
   `.trim()
 
   const WidgetComponent = () => {
@@ -224,26 +224,28 @@ function CountdownBannerWidget({ config, isPreview }: { config: WidgetConfig, is
         animation: config.animation ? 'pulse 2s infinite' : 'none'
       }}
     >
-      <div className="flex items-center justify-center space-x-4 text-sm md:text-base">
-        <span className="text-yellow-300">🔥</span>
-        <span>{config.bannerText || '특가 이벤트 마감까지'}</span>
-        <div className="flex space-x-2">
+      <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm md:text-base">
+        <div className="flex items-center space-x-2">
+          <span className="text-yellow-300">🔥</span>
+          <span>{config.bannerText || '특가 이벤트 마감까지'}</span>
+          <span className="text-yellow-300">🔥</span>
+        </div>
+        <div className="flex space-x-1 sm:space-x-2">
           {timeLeft.days > 0 && (
-            <span className="bg-white bg-opacity-20 px-2 py-1 rounded">
+            <span className="bg-white bg-opacity-20 px-1 sm:px-2 py-1 rounded text-xs sm:text-sm">
               {timeLeft.days}일
             </span>
           )}
-          <span className="bg-white bg-opacity-20 px-2 py-1 rounded">
+          <span className="bg-white bg-opacity-20 px-1 sm:px-2 py-1 rounded text-xs sm:text-sm">
             {timeLeft.hours.toString().padStart(2, '0')}시간
           </span>
-          <span className="bg-white bg-opacity-20 px-2 py-1 rounded">
+          <span className="bg-white bg-opacity-20 px-1 sm:px-2 py-1 rounded text-xs sm:text-sm">
             {timeLeft.minutes.toString().padStart(2, '0')}분
           </span>
-          <span className="bg-white bg-opacity-20 px-2 py-1 rounded">
+          <span className="bg-white bg-opacity-20 px-1 sm:px-2 py-1 rounded text-xs sm:text-sm">
             {timeLeft.seconds.toString().padStart(2, '0')}초
           </span>
         </div>
-        <span className="text-yellow-300">🔥</span>
       </div>
     </div>
   )
@@ -281,7 +283,7 @@ function DiscountCounterWidget({ config, isPreview }: { config: WidgetConfig, is
       >
         {config.title || '💰 실시간 할인 혜택'}
       </h3>
-      <div className="text-2xl font-bold" style={{ color: config.textColor || '#155724' }}>
+      <div className="text-lg sm:text-xl md:text-2xl font-bold break-words" style={{ color: config.textColor || '#155724' }}>
         {config.prefix || '지금까지 '}<span className="text-red-500">{count.toLocaleString()}</span>{config.suffix || '명이 50% 할인받았습니다!'}
       </div>
     </div>
@@ -314,10 +316,10 @@ function VisitorCountWidget({ config, isPreview }: { config: WidgetConfig, isPre
       }}
     >
       <div className="flex items-center space-x-2">
-        <span className="text-xl">👀</span>
-        <div>
-          <div className="text-sm text-gray-600">{config.title || '실시간 조회'}</div>
-          <div className="font-semibold" style={{ color: config.textColor || '#0066cc' }}>
+        <span className="text-lg sm:text-xl">👀</span>
+        <div className="flex-1">
+          <div className="text-xs sm:text-sm text-gray-600">{config.title || '실시간 조회'}</div>
+          <div className="font-semibold text-sm sm:text-base break-words" style={{ color: config.textColor || '#0066cc' }}>
             현재 <span className="text-red-500">{visitors}</span>명이 이 페이지를 보고 있습니다
           </div>
         </div>

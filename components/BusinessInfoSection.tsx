@@ -66,7 +66,7 @@ export default function BusinessInfoSection({
       case 'text':
         return { text: '회사명: 예시 회사\n주소: 서울시 강남구\n전화: 02-1234-5678\n이메일: info@example.com' }
       case 'image':
-        return { src: '', alt: '회사 로고', width: 100, height: 100 }
+        return { src: '', alt: '회사 로고', width: 100, height: 100, link: '' }
       case 'button':
         return { buttonText: '문의하기', link: 'mailto:info@example.com' }
       default:
@@ -91,6 +91,13 @@ export default function BusinessInfoSection({
             title="사업자정보 편집"
           >
             <Edit3 className="w-4 h-4 text-gray-600" />
+          </button>
+          <button
+            onClick={() => onUpdateBusinessInfo({ isVisible: false })}
+            className="p-2 bg-white border border-red-300 rounded-lg shadow-sm hover:bg-red-50 transition-colors"
+            title="사업자정보 삭제"
+          >
+            <Trash2 className="w-4 h-4 text-red-600" />
           </button>
         </div>
       )}

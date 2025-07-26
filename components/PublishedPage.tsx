@@ -47,14 +47,6 @@ export default function PublishedPage({ page }: PublishedPageProps) {
         </div>
       </div>
 
-      {/* 하단 브랜딩 */}
-      <div className="bg-gray-50 border-t py-4 mt-16">
-        <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto px-4 text-center">
-          <p className="text-xs sm:text-sm text-gray-500">
-            이 페이지는 <span className="font-semibold text-blue-600">랜딩페이지 빌더</span>로 제작되었습니다
-          </p>
-        </div>
-      </div>
     </div>
   )
 }

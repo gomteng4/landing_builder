@@ -72,7 +72,7 @@ export default function ElementRenderer({
     case 'heading':
       const HeadingTag = `h${element.content.level || 1}` as keyof JSX.IntrinsicElements
       return (
-        <div className="p-4" style={getElementStyle()}>
+        <div style={getElementStyle()}>
           {isEditing ? (
             <input
               type="text"
@@ -97,7 +97,7 @@ export default function ElementRenderer({
 
     case 'text':
       return (
-        <div className="p-4" style={getElementStyle()}>
+        <div style={getElementStyle()}>
           {isEditing ? (
             <textarea
               value={editValue}
@@ -166,7 +166,7 @@ export default function ElementRenderer({
 
     case 'video':
       return (
-        <div className="p-4" style={getElementStyle()}>
+        <div style={getElementStyle()}>
           {element.content.url ? (
             <div className="aspect-video">
               <iframe
@@ -185,7 +185,7 @@ export default function ElementRenderer({
 
     case 'button':
       return (
-        <div className="p-4" style={getElementStyle()}>
+        <div style={getElementStyle()}>
           <button
             className="font-semibold transition-opacity hover:opacity-80"
             style={getButtonStyle()}
@@ -204,7 +204,7 @@ export default function ElementRenderer({
 
     case 'form':
       return (
-        <div className="p-4" style={getElementStyle()}>
+        <div style={getElementStyle()}>
           <form
             className="space-y-4 max-w-md"
             onSubmit={(e) => {
@@ -281,7 +281,7 @@ export default function ElementRenderer({
 
     case 'widget':
       return (
-        <div className="p-4" style={getElementStyle()}>
+        <div style={getElementStyle()}>
           <WidgetRenderer
             widgetType={element.content.widgetType || 'applicant-list'}
             config={element.content.widgetConfig || {}}

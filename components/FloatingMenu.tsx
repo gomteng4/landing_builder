@@ -48,7 +48,7 @@ export default function FloatingMenu({ config, isPreview = false }: FloatingMenu
             {config.kakaoChannelUrl && (
               <button
                 onClick={() => {
-                  if (!isPreview && config.kakaoChannelUrl) {
+                  if (config.kakaoChannelUrl) {
                     window.open(config.kakaoChannelUrl, '_blank', 'noopener,noreferrer')
                   }
                 }}
@@ -66,7 +66,7 @@ export default function FloatingMenu({ config, isPreview = false }: FloatingMenu
             {config.phoneNumber && (
               <button
                 onClick={() => {
-                  if (!isPreview && config.phoneNumber) {
+                  if (config.phoneNumber) {
                     // 전화번호에서 특수문자 제거하고 tel: 링크로 연결
                     const cleanPhoneNumber = config.phoneNumber.replace(/[^0-9+]/g, '')
                     window.location.href = `tel:${cleanPhoneNumber}`
