@@ -5,7 +5,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900 mb-8">
-          랜딩페이지 빌더
+          랜딩페이지 만들기 이승희꺼
         </h1>
         <p className="text-xl text-gray-600 mb-8">
           드래그앤드롭으로 쉽게 랜딩페이지를 만들어보세요

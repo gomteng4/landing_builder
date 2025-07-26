@@ -37,7 +37,7 @@ export default function BuilderHeader({
           href="/" 
           className="text-xl font-bold text-gray-900 hover:text-blue-600"
         >
-          랜딩페이지 빌더
+          랜딩페이지 만들기 이승희꺼
         </Link>
         <div className="text-gray-500">|</div>
         <h1 className="text-lg font-medium text-gray-700">{title}</h1>
