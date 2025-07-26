@@ -320,6 +320,151 @@ export default function ElementEditor({
             </div>
           )}
 
+          {element.type === 'text-image' && (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  텍스트 내용
+                </label>
+                <textarea
+                  value={element.content.text || ''}
+                  onChange={(e) => updateContent({ text: e.target.value })}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  이미지 업로드
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0]
+                    if (file) {
+                      const formData = new FormData()
+                      formData.append('file', file)
+                      
+                      try {
+                        const response = await fetch('/api/upload', {
+                          method: 'POST',
+                          body: formData
+                        })
+                        
+                        if (response.ok) {
+                          const data = await response.json()
+                          
+                          // 이미지 사이즈 자동 계산
+                          const img = new Image()
+                          img.onload = function() {
+                            let width = img.width
+                            let height = img.height
+                            
+                            // text-image의 경우 더 작은 사이즈로 제한
+                            const maxWidth = 150
+                            if (width > maxWidth) {
+                              height = (height * maxWidth) / width
+                              width = maxWidth
+                            }
+                            
+                            updateContent({ 
+                              src: data.url,
+                              width: Math.round(width),
+                              height: Math.round(height)
+                            })
+                          }
+                          img.src = data.url
+                        } else {
+                          alert('이미지 업로드에 실패했습니다.')
+                        }
+                      } catch (error) {
+                        alert('이미지 업로드 중 오류가 발생했습니다.')
+                      }
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  JPG, PNG, GIF 파일 (최대 5MB)
+                </p>
+              </div>
+              
+              <div className="text-center text-gray-500 text-sm">또는</div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  이미지 URL
+                </label>
+                <input
+                  type="url"
+                  value={element.content.src || ''}
+                  onChange={(e) => {
+                    const url = e.target.value
+                    updateContent({ src: url })
+                    
+                    // URL이 입력되면 이미지 사이즈 자동 계산
+                    if (url && (url.startsWith('http') || url.startsWith('data:'))) {
+                      const img = new Image()
+                      img.onload = function() {
+                        let width = img.width
+                        let height = img.height
+                        
+                        // text-image의 경우 더 작은 사이즈로 제한
+                        const maxWidth = 150
+                        if (width > maxWidth) {
+                          height = (height * maxWidth) / width
+                          width = maxWidth
+                        }
+                        
+                        updateContent({ 
+                          width: Math.round(width),
+                          height: Math.round(height)
+                        })
+                      }
+                      img.src = url
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  레이아웃
+                </label>
+                <select
+                  value={element.content.layout || 'left'}
+                  onChange={(e) => updateContent({ layout: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="left">이미지 왼쪽</option>
+                  <option value="right">이미지 오른쪽</option>
+                  <option value="top">이미지 위</option>
+                  <option value="bottom">이미지 아래</option>
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  링크 URL (선택사항)
+                </label>
+                <input
+                  type="url"
+                  value={element.content.link || ''}
+                  onChange={(e) => updateContent({ link: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="https://example.com"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  클릭 시 이동할 링크
+                </p>
+              </div>
+            </>
+          )}
+
           {element.type === 'button' && (
             <>
               <div>

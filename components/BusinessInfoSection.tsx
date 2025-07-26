@@ -67,6 +67,16 @@ export default function BusinessInfoSection({
         return { text: '회사명: 예시 회사\n주소: 서울시 강남구\n전화: 02-1234-5678\n이메일: info@example.com' }
       case 'image':
         return { src: '', alt: '회사 로고', width: 100, height: 100, link: '' }
+      case 'text-image':
+        return { 
+          text: '회사명: 예시 회사\n주소: 서울시 강남구\n전화: 02-1234-5678', 
+          src: '', 
+          alt: '회사 로고', 
+          width: 100, 
+          height: 100, 
+          link: '',
+          layout: 'left' // 'left', 'right', 'top', 'bottom'
+        }
       case 'button':
         return { buttonText: '문의하기', link: 'mailto:info@example.com' }
       default:
@@ -111,6 +121,7 @@ export default function BusinessInfoSection({
                 { type: 'heading' as const, label: '제목' },
                 { type: 'text' as const, label: '텍스트' },
                 { type: 'image' as const, label: '이미지' },
+                { type: 'text-image' as const, label: '텍스트+이미지' },
                 { type: 'button' as const, label: '버튼' }
               ].map(({ type, label }) => (
                 <button

@@ -57,8 +57,8 @@ export default function ElementRenderer({
 
   const getElementStyle = () => ({
     alignSelf: element.styles?.alignSelf || 'flex-start',
-    padding: element.styles?.padding,
-    margin: element.styles?.margin,
+    padding: element.styles?.padding || '0',
+    margin: element.styles?.margin || '0',
   })
 
   const getButtonStyle = () => ({
@@ -144,8 +144,8 @@ export default function ElementRenderer({
       )
 
       const imageContainerClass = element.content.fullWidth && !isPreview
-        ? "p-0 w-screen -mx-4 md:-mx-8 lg:-mx-16" 
-        : "p-0"
+        ? "w-screen -mx-4 md:-mx-8 lg:-mx-16" 
+        : ""
 
       return (
         <div className={imageContainerClass} style={getElementStyle()}>
@@ -162,6 +162,66 @@ export default function ElementRenderer({
             imageElement
           )}
         </div>
+      )
+
+    case 'text-image':
+      const textImageElement = element.content.src ? (
+        <img
+          src={element.content.src}
+          alt={element.content.alt || ''}
+          className="flex-shrink-0"
+          style={{
+            width: element.content.width || 100,
+            height: element.content.height || 100
+          }}
+        />
+      ) : (
+        <div 
+          className="bg-gray-200 flex items-center justify-center border-2 border-dashed border-gray-300 flex-shrink-0"
+          style={{
+            width: element.content.width || 100,
+            height: element.content.height || 100
+          }}
+        >
+          <span className="text-xs text-gray-500">이미지</span>
+        </div>
+      )
+
+      const textContent = (
+        <div className="flex-1">
+          <p className="whitespace-pre-line" style={getTextStyle()}>
+            {element.content.text || '텍스트 + 이미지'}
+          </p>
+        </div>
+      )
+
+      const layout = element.content.layout || 'left'
+      const flexDirection = layout === 'top' ? 'flex-col' : layout === 'bottom' ? 'flex-col-reverse' : 'flex-row'
+      const imageOrder = layout === 'right' ? 'order-2' : ''
+      const textOrder = layout === 'right' ? 'order-1' : ''
+
+      const combinedElement = (
+        <div className={`flex ${flexDirection} items-center gap-4`} style={getElementStyle()}>
+          <div className={imageOrder}>
+            {textImageElement}
+          </div>
+          <div className={textOrder}>
+            {textContent}
+          </div>
+        </div>
+      )
+
+      return element.content.link && isPreview ? (
+        <a
+          href={element.content.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          {combinedElement}
+        </a>
+      ) : (
+        combinedElement
       )
 
     case 'video':

@@ -1,6 +1,6 @@
 export interface PageElement {
   id: string
-  type: 'heading' | 'text' | 'image' | 'video' | 'button' | 'form' | 'spacer' | 'html' | 'widget'
+  type: 'heading' | 'text' | 'image' | 'video' | 'button' | 'form' | 'spacer' | 'html' | 'widget' | 'text-image'
   content: ElementContent
   styles?: ElementStyles
   order: number
@@ -11,13 +11,14 @@ export interface ElementContent {
   text?: string
   level?: 1 | 2 | 3 | 4 | 5 | 6
   
-  // Image
+  // Image & Text-Image
   src?: string
   alt?: string
   width?: number
   height?: number
   link?: string  // 이미지 링크
   fullWidth?: boolean // 전체 너비 사용
+  layout?: 'left' | 'right' | 'top' | 'bottom' // text-image 레이아웃
   
   // Video
   url?: string
