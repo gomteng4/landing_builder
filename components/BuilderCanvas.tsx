@@ -113,7 +113,7 @@ export default function BuilderCanvas({
             selectedElementId={selectedElementId}
             onUpdateElement={onUpdateElement}
             onDeleteElement={onDeleteElement}
-            onSelectElement={(element) => onSelectElement(element?.id || null)}
+            onSelectElement={(element) => onSelectElement(element ? element.id : null)}
             onAddElement={onAddElement}
             onUpdateBusinessInfo={(updates) => onUpdateSettings({
               businessInfo: { ...settings.businessInfo, ...updates }

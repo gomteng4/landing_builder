@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { PageElement, PageSettings, BusinessInfoSection as BusinessInfo } from '@/types/builder'
-import { Plus, Edit3, Trash2 } from 'lucide-react'
+import { Plus, Edit3, Trash2, ChevronUp, ChevronDown } from 'lucide-react'
 import ElementRenderer from './ElementRenderer'
 import DraggableElement from './DraggableElement'
 import { v4 as uuidv4 } from 'uuid'
@@ -57,6 +57,44 @@ export default function BusinessInfoSection({
     const updatedElements = businessInfo.elements.filter(element => element.id !== id)
     onUpdateBusinessInfo({ elements: updatedElements })
     onSelectElement(null)
+  }
+
+  const handleMoveUp = (id: string) => {
+    const sortedElements = [...businessInfo.elements].sort((a, b) => a.order - b.order)
+    const currentIndex = sortedElements.findIndex(el => el.id === id)
+    
+    if (currentIndex > 0) {
+      const newElements = [...sortedElements]
+      const temp = newElements[currentIndex]
+      newElements[currentIndex] = newElements[currentIndex - 1]
+      newElements[currentIndex - 1] = temp
+      
+      const updatedElements = newElements.map((el, idx) => ({
+        ...el,
+        order: idx
+      }))
+      
+      onUpdateBusinessInfo({ elements: updatedElements })
+    }
+  }
+
+  const handleMoveDown = (id: string) => {
+    const sortedElements = [...businessInfo.elements].sort((a, b) => a.order - b.order)
+    const currentIndex = sortedElements.findIndex(el => el.id === id)
+    
+    if (currentIndex < sortedElements.length - 1) {
+      const newElements = [...sortedElements]
+      const temp = newElements[currentIndex]
+      newElements[currentIndex] = newElements[currentIndex + 1]
+      newElements[currentIndex + 1] = temp
+      
+      const updatedElements = newElements.map((el, idx) => ({
+        ...el,
+        order: idx
+      }))
+      
+      onUpdateBusinessInfo({ elements: updatedElements })
+    }
   }
 
   const getDefaultContent = (type: PageElement['type']) => {
@@ -171,28 +209,52 @@ export default function BusinessInfoSection({
                         }}
                         settings={settings}
                       />
-                      {/* 요소 편집/삭제 버튼들 */}
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 z-10">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            onSelectElement(element)
-                          }}
-                          className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-blue-600"
-                          title="이 요소 편집"
-                        >
-                          <Edit3 className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleDeleteElement(element.id)
-                          }}
-                          className="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
-                          title="이 요소 삭제"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
+                      {/* 요소 편집/삭제/순서변경 버튼들 */}
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col space-y-1 z-10">
+                        <div className="flex space-x-1">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleMoveUp(element.id)
+                            }}
+                            className="bg-gray-500 text-white rounded-sm w-5 h-5 flex items-center justify-center text-xs hover:bg-gray-600"
+                            title="위로 이동"
+                          >
+                            <ChevronUp className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleMoveDown(element.id)
+                            }}
+                            className="bg-gray-500 text-white rounded-sm w-5 h-5 flex items-center justify-center text-xs hover:bg-gray-600"
+                            title="아래로 이동"
+                          >
+                            <ChevronDown className="w-3 h-3" />
+                          </button>
+                        </div>
+                        <div className="flex space-x-1">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              onSelectElement(element)
+                            }}
+                            className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-blue-600"
+                            title="이 요소 편집"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleDeleteElement(element.id)
+                            }}
+                            className="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                            title="이 요소 삭제"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ) : (
