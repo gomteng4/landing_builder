@@ -215,7 +215,7 @@ export default function ElementRenderer({
         </div>
       )
 
-      const textContent = (
+      const textImageContent = (
         <div className="flex-1">
           <p className="whitespace-pre-line" style={getTextStyle()}>
             {element.content.text || '텍스트 + 이미지'}
@@ -234,7 +234,7 @@ export default function ElementRenderer({
             {textImageElement}
           </div>
           <div className={textOrder}>
-            {textContent}
+            {textImageContent}
           </div>
         </div>
       )
