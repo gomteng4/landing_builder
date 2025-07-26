@@ -53,6 +53,8 @@ export default function ElementRenderer({
     textAlign: element.styles?.textAlign || 'left',
     fontSize: element.styles?.fontSize,
     fontWeight: element.styles?.fontWeight,
+    margin: '0',
+    padding: '0',
   })
 
   const getElementStyle = () => ({
@@ -71,7 +73,7 @@ export default function ElementRenderer({
   switch (element.type) {
     case 'heading':
       const HeadingTag = `h${element.content.level || 1}` as keyof JSX.IntrinsicElements
-      return (
+      const headingContent = (
         <div style={getElementStyle()}>
           {isEditing ? (
             <input
@@ -94,9 +96,22 @@ export default function ElementRenderer({
           )}
         </div>
       )
+      
+      return element.content.link && isPreview ? (
+        <a
+          href={element.content.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          {headingContent}
+        </a>
+      ) : (
+        headingContent
+      )
 
     case 'text':
-      return (
+      const textContent = (
         <div style={getElementStyle()}>
           {isEditing ? (
             <textarea
@@ -118,6 +133,19 @@ export default function ElementRenderer({
             </p>
           )}
         </div>
+      )
+      
+      return element.content.link && isPreview ? (
+        <a
+          href={element.content.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          {textContent}
+        </a>
+      ) : (
+        textContent
       )
 
     case 'image':

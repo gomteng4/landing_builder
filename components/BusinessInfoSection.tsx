@@ -171,17 +171,29 @@ export default function BusinessInfoSection({
                         }}
                         settings={settings}
                       />
-                      {/* 개별 요소 삭제 버튼 */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDeleteElement(element.id)
-                        }}
-                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 z-10"
-                        title="이 요소 삭제"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
+                      {/* 요소 편집/삭제 버튼들 */}
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 z-10">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onSelectElement(element)
+                          }}
+                          className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-blue-600"
+                          title="이 요소 편집"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleDeleteElement(element.id)
+                          }}
+                          className="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                          title="이 요소 삭제"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <ElementRenderer

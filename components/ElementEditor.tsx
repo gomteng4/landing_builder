@@ -116,21 +116,53 @@ export default function ElementEditor({
                   ))}
                 </select>
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  링크 URL (선택사항)
+                </label>
+                <input
+                  type="url"
+                  value={element.content.link || ''}
+                  onChange={(e) => updateContent({ link: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="https://example.com"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  제목 클릭 시 이동할 링크
+                </p>
+              </div>
             </>
           )}
 
           {element.type === 'text' && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                텍스트 내용
-              </label>
-              <textarea
-                value={element.content.text || ''}
-                onChange={(e) => updateContent({ text: e.target.value })}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  텍스트 내용
+                </label>
+                <textarea
+                  value={element.content.text || ''}
+                  onChange={(e) => updateContent({ text: e.target.value })}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  링크 URL (선택사항)
+                </label>
+                <input
+                  type="url"
+                  value={element.content.link || ''}
+                  onChange={(e) => updateContent({ link: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="https://example.com"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  텍스트 클릭 시 이동할 링크
+                </p>
+              </div>
+            </>
           )}
 
           {element.type === 'image' && (
