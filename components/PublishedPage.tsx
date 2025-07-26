@@ -1,7 +1,8 @@
 'use client'
 
-import { PageElement, PageSettings } from '@/types/builder'
+import { PageElement, PageSettings, BusinessInfoSection as BusinessInfo } from '@/types/builder'
 import ElementRenderer from './ElementRenderer'
+import BusinessInfoSection from './BusinessInfoSection'
 
 interface PublishedPageProps {
   page: {
@@ -46,6 +47,20 @@ export default function PublishedPage({ page }: PublishedPageProps) {
           ))}
         </div>
       </div>
+
+      {/* 사업자 정보 섹션 */}
+      {page.settings.businessInfo && (
+        <BusinessInfoSection
+          businessInfo={page.settings.businessInfo}
+          settings={page.settings}
+          isPreview={true}
+          onUpdateElement={() => {}}
+          onDeleteElement={() => {}}
+          onSelectElement={() => {}}
+          onAddElement={() => {}}
+          onUpdateBusinessInfo={() => {}}
+        />
+      )}
 
     </div>
   )

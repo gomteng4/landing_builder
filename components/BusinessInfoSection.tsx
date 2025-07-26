@@ -137,28 +137,41 @@ export default function BusinessInfoSection({
               .map((element, index) => (
                 <div key={element.id} className="relative">
                   {!isPreview ? (
-                    <DraggableElement
-                      element={element}
-                      index={index}
-                      isSelected={selectedElementId === element.id}
-                      onSelect={() => onSelectElement(element)}
-                      onUpdate={handleUpdateElement}
-                      onMove={(dragIndex, hoverIndex) => {
-                        const sortedElements = [...businessInfo.elements].sort((a, b) => a.order - b.order)
-                        const dragElement = sortedElements[dragIndex]
-                        const newElements = [...sortedElements]
-                        newElements.splice(dragIndex, 1)
-                        newElements.splice(hoverIndex, 0, dragElement)
-                        
-                        const updatedElements = newElements.map((el, idx) => ({
-                          ...el,
-                          order: idx
-                        }))
-                        
-                        onUpdateBusinessInfo({ elements: updatedElements })
-                      }}
-                      settings={settings}
-                    />
+                    <div className="relative group">
+                      <DraggableElement
+                        element={element}
+                        index={index}
+                        isSelected={selectedElementId === element.id}
+                        onSelect={() => onSelectElement(element)}
+                        onUpdate={handleUpdateElement}
+                        onMove={(dragIndex, hoverIndex) => {
+                          const sortedElements = [...businessInfo.elements].sort((a, b) => a.order - b.order)
+                          const dragElement = sortedElements[dragIndex]
+                          const newElements = [...sortedElements]
+                          newElements.splice(dragIndex, 1)
+                          newElements.splice(hoverIndex, 0, dragElement)
+                          
+                          const updatedElements = newElements.map((el, idx) => ({
+                            ...el,
+                            order: idx
+                          }))
+                          
+                          onUpdateBusinessInfo({ elements: updatedElements })
+                        }}
+                        settings={settings}
+                      />
+                      {/* 개별 요소 삭제 버튼 */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleDeleteElement(element.id)
+                        }}
+                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 z-10"
+                        title="이 요소 삭제"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
                   ) : (
                     <ElementRenderer
                       element={element}
