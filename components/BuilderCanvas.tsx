@@ -46,6 +46,18 @@ export default function BuilderCanvas({
     }
   }, [onSelectElement])
 
+  const handleMoveUp = useCallback((index: number) => {
+    if (index > 0) {
+      onMoveElement(index, index - 1)
+    }
+  }, [onMoveElement])
+
+  const handleMoveDown = useCallback((index: number) => {
+    if (index < elements.length - 1) {
+      onMoveElement(index, index + 1)
+    }
+  }, [onMoveElement, elements.length])
+
   return (
     <div className="flex-1 overflow-auto bg-gray-50">
       <div className="min-h-full p-4 md:p-8">
@@ -92,6 +104,10 @@ export default function BuilderCanvas({
                     onSelect={() => onSelectElement(element.id)}
                     onUpdate={onUpdateElement}
                     onMove={onMoveElement}
+                    onDelete={onDeleteElement}
+                    totalElements={elements.length}
+                    onMoveUp={handleMoveUp}
+                    onMoveDown={handleMoveDown}
                   />
                 )}
               </div>

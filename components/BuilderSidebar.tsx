@@ -51,9 +51,9 @@ export default function BuilderSidebar({
 }: BuilderSidebarProps) {
   const [activeTab, setActiveTab] = useState<'elements' | 'widgets' | 'settings' | 'edit'>('elements')
 
-  // 선택된 요소가 있을 때 편집 탭이 활성화되지 않은 경우에만 편집 탭으로 전환
-  if (selectedElement && activeTab === 'elements') {
-    // 요소가 선택되어도 사용자가 명시적으로 elements 탭을 클릭한 경우 유지
+  // 선택된 요소가 있을 때 자동으로 편집 탭으로 전환
+  if (selectedElement && activeTab !== 'edit') {
+    setActiveTab('edit')
   }
 
   return (
